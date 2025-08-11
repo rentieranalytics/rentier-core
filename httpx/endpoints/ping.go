@@ -5,7 +5,7 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/rentier-io/rentier-core/httpx/middleware"
+	"github.com/rentieranalytics/rentier-core/httpx/middleware"
 )
 
 type Ping struct{}
