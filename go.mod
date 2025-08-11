@@ -1,4 +1,4 @@
-module github.com/rentier-io/rentier-core
+module github.com/rentier-io/rentieranalytics
 
 go 1.24.4
 

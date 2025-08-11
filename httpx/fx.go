@@ -6,7 +6,7 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/rentier-io/rentier-core/httpx/endpoints"
+	"github.com/rentier-io/rentieranalytics/httpx/endpoints"
 	"go.uber.org/fx"
 )
 

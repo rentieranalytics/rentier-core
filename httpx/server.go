@@ -3,7 +3,7 @@ package httpx
 import (
 	"net/http"
 
-	"github.com/rentier-io/rentier-core/httpx/middleware"
+	"github.com/rentier-io/rentieranalytics/httpx/middleware"
 )
 
 type HttpServerConfig interface {
