@@ -15,13 +15,13 @@ func (c *Client) CalculateAVM(
 	ctx context.Context,
 	body any,
 	ropts ...RequestOption,
-) (*AVMResponse, []byte, error) {
+) (*AVMResponse, error) {
 	var out AVMResponse
-	raw, err := c.doJSON(ctx, http.MethodPost, DefaultCalculateAVMPath, body, &out, ropts...)
+	_, err := c.doJSON(ctx, http.MethodPost, DefaultCalculateAVMPath, body, &out, ropts...)
 	if err != nil {
-		return nil, raw, err
+		return nil, err
 	}
-	return &out, raw, nil
+	return &out, nil
 }
 
 func (c *Client) doJSON(
