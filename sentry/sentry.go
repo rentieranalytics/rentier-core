@@ -5,4 +5,5 @@ type SentryConfig interface {
 	GetSentryEnv() string
 	GetSentrySampleRate() float64
 	GetVersion() string
+	GetServerName() string
 }

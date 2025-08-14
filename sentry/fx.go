@@ -14,6 +14,7 @@ var Module = fx.Module(
 			TracesSampleRate: c.GetSentrySampleRate(),
 			Environment:      c.GetSentryEnv(),
 			Release:          c.GetVersion(),
+			ServerName:       c.GetServerName(),
 		}); err != nil {
 			panic(err)
 		}
