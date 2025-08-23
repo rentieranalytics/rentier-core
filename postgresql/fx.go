@@ -7,6 +7,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/multitracer"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.uber.org/fx"
 )
@@ -20,7 +21,10 @@ var Module = fx.Module(
 			}
 		},
 		InitTracer,
-		InitPostgresqlPool,
+		fx.Annotate(
+			InitPostgresqlPool,
+			fx.As(new(DBConn)),
+		),
 	),
 )
 
@@ -61,4 +65,12 @@ func InitPostgresqlPool(
 		return nil, fmt.Errorf("ping db: %w", err)
 	}
 	return pool, nil
+}
+
+type DBConn interface {
+	Begin(ctx context.Context) (pgx.Tx, error)
+	BeginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, error)
+	Exec(ctx context.Context, sql string, arguments ...interface{}) (pgconn.CommandTag, error)
+	Query(ctx context.Context, sql string, optionsAndArgs ...interface{}) (pgx.Rows, error)
+	QueryRow(ctx context.Context, sql string, optionsAndArgs ...interface{}) pgx.Row
 }
