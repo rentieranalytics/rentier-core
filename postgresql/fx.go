@@ -3,6 +3,7 @@ package postgresql
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5"
@@ -64,6 +65,7 @@ func InitPostgresqlPool(
 	if err := pool.Ping(ctx); err != nil {
 		return nil, fmt.Errorf("ping db: %w", err)
 	}
+	log.Printf("✅ Connected to Postgresql at %s", config.GetPostgresqlServerAddress())
 	return pool, nil
 }
 
