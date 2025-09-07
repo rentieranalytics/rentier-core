@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/getsentry/sentry-go"
 	"github.com/rentieranalytics/rentier-core/httpx"
 )
 
@@ -34,6 +35,7 @@ func (c *ApiCalculation) AVM(
 	ctx context.Context,
 	data *AVMCalculationRequest,
 ) (AVMCalculationResponse, error) {
+	hub := sentry.GetHubFromContext(ctx)
 	v, e := json.Marshal(data)
 	if e != nil {
 		return AVMCalculationResponse{}, e
@@ -50,6 +52,8 @@ func (c *ApiCalculation) AVM(
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Content-Type", "application/json")
+	request.Header.Set(sentry.SentryTraceHeader, hub.GetTraceparent())
+	request.Header.Set(sentry.SentryBaggageHeader, hub.GetBaggage())
 
 	resp, err := c.client.Do(request)
 	if err != nil {
