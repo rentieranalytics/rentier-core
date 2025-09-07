@@ -35,7 +35,8 @@ func (c *ApiCalculation) AVM(
 	ctx context.Context,
 	data *AVMCalculationRequest,
 ) (AVMCalculationResponse, error) {
-	hub := sentry.GetHubFromContext(ctx)
+	span := sentry.StartSpan(ctx, "call avm")
+	defer span.Finish()
 	v, e := json.Marshal(data)
 	if e != nil {
 		return AVMCalculationResponse{}, e
@@ -52,8 +53,8 @@ func (c *ApiCalculation) AVM(
 	}
 	request.Header.Set("Accept", "application/json")
 	request.Header.Set("Content-Type", "application/json")
-	request.Header.Set(sentry.SentryTraceHeader, hub.GetTraceparent())
-	request.Header.Set(sentry.SentryBaggageHeader, hub.GetBaggage())
+	request.Header.Set(sentry.SentryTraceHeader, span.ToSentryTrace())
+	request.Header.Set(sentry.SentryBaggageHeader, span.ToBaggage())
 
 	resp, err := c.client.Do(request)
 	if err != nil {
