@@ -68,7 +68,9 @@ func (c *ApiCalculation) AVM(
 			fmt.Sprintf("external call failed: %s", body),
 		)
 	}
-
+	if resp.StatusCode == http.StatusNoContent {
+		return AVMCalculationResponse{}, nil
+	}
 	defer resp.Body.Close()
 	b, err := io.ReadAll(resp.Body)
 	if err != nil {
