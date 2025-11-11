@@ -60,7 +60,7 @@ func (c *ApiCalculation) AVM(
 	if err != nil {
 		return AVMCalculationResponse{}, err
 	}
-
+	fmt.Println(">>>>>", resp)
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNoContent {
 		body, _ := io.ReadAll(resp.Body)
 		return AVMCalculationResponse{}, NewHTTPError(
@@ -76,11 +76,12 @@ func (c *ApiCalculation) AVM(
 	if err != nil {
 		return AVMCalculationResponse{}, err
 	}
+	fmt.Println(">>>>>", string(b))
 	var avmR AVMCalculationResponse
 	err = json.Unmarshal(b, &avmR)
 	if err != nil {
 		return AVMCalculationResponse{}, err
 	}
-
+	fmt.Println(">>>> avmR: ", avmR)
 	return avmR, nil
 }
