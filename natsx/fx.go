@@ -9,6 +9,9 @@ import (
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/fx"
+
+	wjetstream "github.com/ThreeDotsLabs/watermill-nats/v2/pkg/jetstream"
+	wmessage "github.com/ThreeDotsLabs/watermill/message"
 )
 
 var Module = fx.Module(
@@ -42,6 +45,7 @@ func NewNatsConnection(config NatsConfig, logger *slog.Logger) *nats.Conn {
 	conn, natsConnectErr := nats.Connect(
 		config.GetNatsURL(),
 		nats.UserCredentials(config.GetNatsJWTUserFilePath()),
+
 		nats.Name(config.GetClientName()),
 		nats.ReconnectWait(2*time.Second),
 		nats.MaxReconnects(-1),
