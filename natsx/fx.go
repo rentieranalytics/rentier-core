@@ -45,9 +45,10 @@ func NewNatsConnection(config NatsConfig, logger *slog.Logger) *nats.Conn {
 	conn, natsConnectErr := nats.Connect(
 		config.GetNatsURL(),
 		nats.UserCredentials(config.GetNatsJWTUserFilePath()),
-		nats.Name("api-estimator"),
-		nats.ReconnectWait(2*time.Second), // czas oczekiwania między próbami reconnectu
-		nats.MaxReconnects(-1),            // -1 oznacza nieskończone próby reconnectu
+
+		nats.Name(config.GetClientName()),
+		nats.ReconnectWait(2*time.Second),
+		nats.MaxReconnects(-1),
 		nats.DisconnectErrHandler(func(nc *nats.Conn, err error) {
 			logger.Error(
 				"Disconnected due to error, will attempt reconnects",
@@ -71,24 +72,6 @@ func NewNatsConnection(config NatsConfig, logger *slog.Logger) *nats.Conn {
 		panic(natsConnectErr)
 	}
 	return conn
-}
-
-func NewNatsPublisher(
-	logger watermill.LoggerAdapter,
-	con *nats.Conn,
-	sConfig jetstream.StreamConfig,
-) wmessage.Publisher {
-	publisher, err := wjetstream.NewPublisher(
-		wjetstream.PublisherConfig{
-			Conn:   con,
-			Logger: logger,
-		},
-	)
-	if err != nil {
-		panic(err)
-	}
-	return publisher
-
 }
 
 func NewNatsJetStream(

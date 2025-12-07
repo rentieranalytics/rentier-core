@@ -6,4 +6,5 @@ type NatsConfig interface {
 	GetNatsEstimatorStream() string
 	GetNatsEstimatorStreamTopics() []string
 	GetNatsStreamReplicas() int
+	GetClientName() string
 }
