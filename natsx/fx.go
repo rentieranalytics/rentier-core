@@ -9,9 +9,6 @@ import (
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/fx"
-
-	wjetstream "github.com/ThreeDotsLabs/watermill-nats/v2/pkg/jetstream"
-	wmessage "github.com/ThreeDotsLabs/watermill/message"
 )
 
 var Module = fx.Module(
