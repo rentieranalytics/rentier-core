@@ -26,6 +26,7 @@ func NewRouter(
 	}
 	return router
 }
+
 func RunRouter(router *wmessage.Router) {
 	ctx := context.Background()
 	go router.Run(ctx)
