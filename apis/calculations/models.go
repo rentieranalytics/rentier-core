@@ -29,20 +29,22 @@ type AVMStats struct {
 }
 
 type AVMEstimation struct {
-	Distance                      int             `json:"distance"`
-	Points                        int             `json:"points"`
-	RealEstates                   int             `json:"real_estates"`
-	Days                          int             `json:"days"`
-	Accuracy                      int             `json:"accuracy"`
-	RealEstatesUsedForCalculation []AVMRealEstate `json:"real_estates_used_for_calculation"`
-	AvgPrice                      string          `json:"avg_price"`
-	AvgPriceM2                    string          `json:"avg_price_m2"`
-	StandardDeviationPriceM2      string          `json:"standard_deviation_price_m2"`
-	StandardDeviationPrice        string          `json:"standard_deviation_price"`
-	DeviationPriceMin             string          `json:"deviation_price_min"`
-	DeviationPriceMax             string          `json:"deviation_price_max"`
-	DeviationPriceM2Min           string          `json:"deviation_price_m2_min"`
-	DeviationPriceM2Max           string          `json:"deviation_price_m2_max"`
+	Distance                       int             `json:"distance"`
+	Points                         int             `json:"points"`
+	RealEstates                    int             `json:"real_estates"`
+	Days                           int             `json:"days"`
+	Accuracy                       int             `json:"accuracy"`
+	RealEstatesUsedForCalculation  []AVMRealEstate `json:"real_estates_used_for_calculation"`
+	AvgPrice                       string          `json:"avg_price"`
+	AvgPriceM2                     string          `json:"avg_price_m2"`
+	StandardDeviationPriceM2       string          `json:"standard_deviation_price_m2"`
+	StandardDeviationPrice         string          `json:"standard_deviation_price"`
+	DeviationPriceMin              string          `json:"deviation_price_min"`
+	DeviationPriceMax              string          `json:"deviation_price_max"`
+	DeviationPriceM2Min            string          `json:"deviation_price_m2_min"`
+	DeviationPriceM2Max            string          `json:"deviation_price_m2_max"`
+	DeviationTransactionalPriceMin string          `json:"deviation_price_tran_min"`
+	DeviationTransactionalPriceMax string          `json:"deviation_price_tran_max"`
 }
 
 type AVMRealEstate struct {
